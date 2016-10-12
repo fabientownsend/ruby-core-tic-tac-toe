@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/fabientownsend/ruby-core-tic-tac-toe.svg?branch=master)](https://travis-ci.org/fabientownsend/ruby-core-tic-tac-toe)
+[![Coverage Status](https://coveralls.io/repos/github/fabientownsend/ruby-core-tic-tac-toe/badge.svg?branch=master)](https://coveralls.io/github/fabientownsend/ruby-core-tic-tac-toe?branch=master)
 # CoreTicTacToe
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/core_tic_tac_toe`. To experiment with that code, run `bin/console` for an interactive prompt.
