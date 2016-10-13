@@ -15,8 +15,8 @@ class Board
     board[get_row(position)][get_column(position)] = mark
   end
 
-  def remove_mark(position, value)
-    board[get_row(position)][get_column(position)] = value
+  def remove_mark(position)
+    board[get_row(position)][get_column(position)] = position
   end
 
   def win?(mark)

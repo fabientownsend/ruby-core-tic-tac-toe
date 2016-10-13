@@ -22,7 +22,7 @@ class Computer < Player
     board.free_positions.each do |position|
       board.set_mark(mark, position)
       result = alphabeta(mark, -1000, 1000)
-      board.remove_mark(position, position)
+      board.remove_mark(position)
 
       if result > best_value
         best_value = result
@@ -94,7 +94,7 @@ class Computer < Player
   def get_value_move(current_mark, alpha, beta,  position)
     board.set_mark(current_mark, position)
     result = alphabeta(current_mark, alpha, beta)
-    board.remove_mark(position, position)
+    board.remove_mark(position)
     result
   end
 end
