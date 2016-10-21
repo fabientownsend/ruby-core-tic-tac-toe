@@ -13,9 +13,9 @@ class Game
   end
 
   def play(position)
-    if (is_valid?(position))
-      @board.set_mark(@current_player, Integer(position))
+    if (is_valid?(position) && !over?)
 
+      @board.set_mark(@current_player, Integer(position))
       if (!over?)
         switch_players
       end
