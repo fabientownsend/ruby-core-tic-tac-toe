@@ -1,11 +1,6 @@
-require 'marks'
-require 'computer'
-
 class Game
-  attr_reader :status
   attr_reader :current_player
   attr_reader :winner
-  attr_accessor :vs_computer
 
   def initialize(board, player_one, player_two)
     @board = board
@@ -40,10 +35,6 @@ class Game
   end
 
   private
-
-  def create_computer
-    Computer.new(Mark::ROUND, @board)
-  end
 
   def is_valid?(position)
     is_integer(position) && board_range?(Integer(position)) && available?(Integer(position))
