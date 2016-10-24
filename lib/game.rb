@@ -1,21 +1,26 @@
 require 'marks'
+require 'computer'
 
 class Game
   attr_reader :status
   attr_reader :current_player
   attr_reader :winner
+  attr_accessor :vs_computer
 
-  def initialize(board)
+  def initialize(board, player_one, player_two)
     @board = board
-    @players = [Mark::CROSS, Mark::ROUND]
+    @players = [player_one, player_two]
     @current_player = @players.first
     @winner = ""
   end
 
-  def play(position)
-    if (is_valid?(position) && !over?)
+  def play
+    move = @current_player.next_move
 
-      @board.set_mark(@current_player, Integer(position))
+    if (is_valid?(move) && !over?)
+
+      @board.set_mark(@current_player.mark, Integer(move))
+
       if (!over?)
         switch_players
       end
@@ -23,18 +28,22 @@ class Game
   end
 
   def over?
-    @board.win?(@current_player) || @board.tie?
+    @board.win?(@current_player.mark) || @board.tie?
   end
 
   def winner
     if (!@board.tie?)
-      @winner = @current_player
+      @winner = @current_player.mark
     else
       @winner
     end
   end
 
   private
+
+  def create_computer
+    Computer.new(Mark::ROUND, @board)
+  end
 
   def is_valid?(position)
     is_integer(position) && board_range?(Integer(position)) && available?(Integer(position))
