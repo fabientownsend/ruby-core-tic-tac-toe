@@ -12,6 +12,10 @@ class Board
   end
 
   def set_mark(mark, position)
+    position = Integer(position)
+    in_range(position)
+    available(position)
+
     board[get_row(position)][get_column(position)] = mark
   end
 
@@ -88,4 +92,22 @@ class Board
   def backward_index(index)
     board.size - index - 1
   end
+
+  def in_range(position)
+    if position < @POSITION_MIN || position > @POSITION_MAX
+      raise OutOfRangeError
+    end
+  end
+
+  def available(position)
+    if !free_positions.include?(position)
+      raise OccupiedPositionError
+    end
+  end
+end
+
+class OutOfRangeError < Exception
+end
+
+class OccupiedPositionError < Exception
 end

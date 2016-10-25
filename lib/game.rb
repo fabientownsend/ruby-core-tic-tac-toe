@@ -1,6 +1,5 @@
 class Game
   attr_reader :current_player
-    @game.play
   attr_reader :winner
 
   def initialize(board, player_one, player_two)
@@ -29,7 +28,7 @@ class Game
 
   def winner
     if (!@board.tie?)
-      @winner = @current_player
+      @winner = @current_player.mark
     else
       @winner
     end

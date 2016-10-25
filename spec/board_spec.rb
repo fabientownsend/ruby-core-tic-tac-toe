@@ -91,4 +91,22 @@ RSpec.describe Board do
     board_helper = BoardHelper.new(board)
     expect(board_helper.board_to_string).to eq("    ,    ,    ,    ")
   end
+
+  it "raise an error when it's not a int" do
+    expect { board.set_mark(Mark::CROSS, "a string") }.to raise_error(ArgumentError)
+  end
+
+  it "raise an error when the spot is occupied" do
+    position = 0
+    board.set_mark(Mark::CROSS, position)
+    expect { board.set_mark(Mark::CROSS, position) }.to raise_error(OccupiedPositionError)
+  end
+
+  it "raise an error when the position is too low" do
+    expect { board.set_mark(Mark::CROSS, board.POSITION_MIN - 1) }.to raise_error(OutOfRangeError)
+  end
+
+  it "raise an error when the position is too hight" do
+    expect { board.set_mark(Mark::CROSS, board.POSITION_MAX + 1) }.to raise_error(OutOfRangeError)
+  end
 end
