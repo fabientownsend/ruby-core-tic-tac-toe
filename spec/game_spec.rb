@@ -42,33 +42,6 @@ RSpec.describe Game do
     expect(board_helper.board_to_string).to eq("XO ,   ,   ")
   end
 
-  it "doesn't switch player when the move isn't available" do
-    execute_moves([0, 0])
-    expect(game.current_player.mark).to eq(Mark::ROUND)
-    expect(board_helper.board_to_string).to eq("X  ,   ,   ")
-  end
-
-  it "doesn't change the player when the move is text" do
-    fake_player.next_move = "adsf"
-    game.play
-    expect(game.current_player.mark).to eq(Mark::CROSS)
-    expect(board_helper.board_to_string).to eq("   ,   ,   ")
-  end
-
-  it "doesn't change the player when the value is a under the board limit" do
-    fake_player.next_move = -1
-    game.play
-    expect(game.current_player.mark).to eq(Mark::CROSS)
-    expect(board_helper.board_to_string).to eq("   ,   ,   ")
-  end
-
-  it "doesn't change the player when the value is a under the board limit" do
-    fake_player.next_move = 100
-    game.play
-    expect(game.current_player.mark).to eq(Mark::CROSS)
-    expect(board_helper.board_to_string).to eq("   ,   ,   ")
-  end
-
   it "return the game status" do
     expect(game.over?).to be false
   end
