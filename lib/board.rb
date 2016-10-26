@@ -24,7 +24,8 @@ class Board
   end
 
   def win?(mark)
-    win_with_columns?(mark) || win_with_rows?(mark) || win_with_diagonal?(mark)
+    posibilities = rows + columns + diagonals
+    posibilities.any? { |posibility| posibility.all? { |cell_mark| cell_mark  == mark } }
   end
 
   def tie?
@@ -36,7 +37,44 @@ class Board
     flat_board.each_index.select { |index| empty?(flat_board[index]) }
   end
 
+  def content
+    board_string = ""
+
+    board.flatten.each.with_index do |value, index|
+      if !value.is_a?(Integer)
+        board_string << value
+      else
+        board_string << " "
+      end
+
+      index += 1
+      if  board_edge?(index) && index != @POSITION_MAX
+        board_string << ","
+      end
+
+    end
+
+    board_string
+  end
+
   private
+
+  def rows
+    board
+  end
+
+  def columns
+    board.transpose
+  end
+
+  def diagonals
+    diagonal = Array.new
+    board.size.times { |index| diagonal << board[index][index] }
+    backward_diagonal = Array.new
+    board.size.times { |index| backward_diagonal << board[index][backward_index(index)] }
+
+    [diagonal, backward_diagonal]
+  end
 
   def empty?(spot)
     spot != Mark::ROUND && spot != Mark::CROSS
@@ -65,30 +103,6 @@ class Board
     position / board.size
   end
 
-  def win_with_columns?(mark)
-    board.transpose.any? { |column| same_symbol?(column, mark) }
-  end
-
-  def win_with_rows?(mark)
-    board.any? { |row| same_symbol?(row, mark) }
-  end
-
-  def same_symbol?(rows, mark)
-    rows.all? { |row| row == mark }
-  end
-
-  def win_with_diagonal?(mark)
-    check_forward_diagonal?(mark) || check_backward_diagonal?(mark)
-  end
-
-  def check_forward_diagonal?(mark)
-    board.size.times.all? { |index| board[index][index] == mark }
-  end
-
-  def check_backward_diagonal?(mark)
-    board.size.times.all? { |index| board[index][backward_index(index)] == mark }
-  end
-
   def backward_index(index)
     board.size - index - 1
   end
@@ -103,6 +117,10 @@ class Board
     if !free_positions.include?(position)
       raise OccupiedPositionError
     end
+  end
+
+  def board_edge?(index)
+    index % board.size == 0
   end
 end
 
