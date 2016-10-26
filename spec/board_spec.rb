@@ -10,7 +10,9 @@ RSpec.describe Board do
   it "is a free spot when the spot isn't used" do
     position = 0
     board_helper.string_to_board("   ,   ,   ")
+
     expect(board.free_positions.include?(position)).to be true
+    expect(board.content).to eq("   ,   ,   ")
   end
 
   it "isn't a free position when the spot is used" do
@@ -18,6 +20,7 @@ RSpec.describe Board do
     board_helper.string_to_board("X  ,   ,   ")
 
     expect(board.free_positions.include?(position)).to be false
+    expect(board.content).to eq("X  ,   ,   ")
   end
 
   it "is a win with the first column" do
@@ -82,7 +85,6 @@ RSpec.describe Board do
 
   it "create a board 3x3" do
     board = Board.new(3)
-    #board_helper = BoardHelper.new(board)
     expect(board.content).to eq("   ,   ,   ")
   end
 
