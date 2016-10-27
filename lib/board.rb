@@ -68,12 +68,19 @@ class Board
   end
 
   def diagonals
+    [first_diagonal, second_diagonal]
+  end
+
+  def first_diagonal
     diagonal = Array.new
     board.size.times { |index| diagonal << board[index][index] }
-    backward_diagonal = Array.new
-    board.size.times { |index| backward_diagonal << board[index][backward_index(index)] }
+    diagonal
+  end
 
-    [diagonal, backward_diagonal]
+  def second_diagonal
+    second_diagonal = Array.new
+    board.size.times { |index| second_diagonal << board[index][backward_index(index)] }
+    second_diagonal
   end
 
   def empty?(spot)
