@@ -72,15 +72,11 @@ class Board
   end
 
   def first_diagonal
-    diagonal = Array.new
-    board.size.times { |index| diagonal << board[index][index] }
-    diagonal
+    board.size.times.inject([]) { |first_diagonal, index| first_diagonal << board[index][index] }
   end
 
   def second_diagonal
-    second_diagonal = Array.new
-    board.size.times { |index| second_diagonal << board[index][backward_index(index)] }
-    second_diagonal
+    board.size.times.inject([]) { |second_diagonal, index| second_diagonal << board[index][backward_index(index)] }
   end
 
   def empty?(spot)
