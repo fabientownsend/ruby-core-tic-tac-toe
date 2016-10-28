@@ -10,7 +10,9 @@ class Game
   end
 
   def play
-    @board.set_mark(@current_player.mark, @current_player.next_move)
+    if (!over?)
+      @board.set_mark(@current_player.mark, @current_player.next_move)
+    end
 
     if (!over?)
       switch_players
