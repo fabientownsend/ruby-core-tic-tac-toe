@@ -10,7 +10,9 @@ RSpec.describe Board do
   it "is a free spot when the spot isn't used" do
     position = 0
     board_helper.string_to_board("   ,   ,   ")
+
     expect(board.free_positions.include?(position)).to be true
+    expect(board.content).to eq("   ,   ,   ")
   end
 
   it "isn't a free position when the spot is used" do
@@ -18,6 +20,7 @@ RSpec.describe Board do
     board_helper.string_to_board("X  ,   ,   ")
 
     expect(board.free_positions.include?(position)).to be false
+    expect(board.content).to eq("X  ,   ,   ")
   end
 
   it "is a win with the first column" do
@@ -82,13 +85,29 @@ RSpec.describe Board do
 
   it "create a board 3x3" do
     board = Board.new(3)
-    board_helper = BoardHelper.new(board)
-    expect(board_helper.board_to_string).to eq("   ,   ,   ")
+    expect(board.content).to eq("   ,   ,   ")
   end
 
   it "create a board 4x4" do
     board = Board.new(4)
-    board_helper = BoardHelper.new(board)
-    expect(board_helper.board_to_string).to eq("    ,    ,    ,    ")
+    expect(board.content).to eq("    ,    ,    ,    ")
+  end
+
+  it "raise an error when it's not a int" do
+    expect { board.set_mark(Mark::CROSS, "a string") }.to raise_error(ArgumentError)
+  end
+
+  it "raise an error when the spot is occupied" do
+    position = 0
+    board.set_mark(Mark::CROSS, position)
+    expect { board.set_mark(Mark::CROSS, position) }.to raise_error(OccupiedPositionError)
+  end
+
+  it "raise an error when the position is too low" do
+    expect { board.set_mark(Mark::CROSS, board.POSITION_MIN - 1) }.to raise_error(OutOfRangeError)
+  end
+
+  it "raise an error when the position is too hight" do
+    expect { board.set_mark(Mark::CROSS, board.POSITION_MAX + 1) }.to raise_error(OutOfRangeError)
   end
 end

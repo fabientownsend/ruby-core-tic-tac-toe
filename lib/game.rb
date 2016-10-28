@@ -10,15 +10,12 @@ class Game
   end
 
   def play
-    move = @current_player.next_move
+    if (!over?)
+      @board.set_mark(@current_player.mark, @current_player.next_move)
+    end
 
-    if (is_valid?(move) && !over?)
-
-      @board.set_mark(@current_player.mark, Integer(move))
-
-      if (!over?)
-        switch_players
-      end
+    if (!over?)
+      switch_players
     end
   end
 
@@ -35,26 +32,6 @@ class Game
   end
 
   private
-
-  def is_valid?(position)
-    is_integer(position) && board_range?(Integer(position)) && available?(Integer(position))
-  end
-
-  def available?(position)
-    @board.free_positions.include?(position)
-  end
-
-  def is_integer(value)
-    begin
-      Integer(value)
-    rescue
-      return false
-    end
-  end
-
-  def board_range?(position)
-    position >= @board.POSITION_MIN && position <= @board.POSITION_MAX
-  end
 
   def switch_players
     @current_player = @players.reverse!.first
