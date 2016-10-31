@@ -5,16 +5,18 @@ require 'marks'
 class FakePlayer
   attr_accessor :next_move
   attr_reader :mark
+  attr_reader :ready
 
-  def initialize(mark)
+  def initialize(mark, ready)
     @mark = mark
+    @ready = ready
   end
 end
 
 RSpec.describe Game do
   let (:board) { Board.new }
-  let(:fake_player) { FakePlayer.new(Mark::CROSS) }
-  let(:fake_player_2) { FakePlayer.new(Mark::ROUND) }
+  let(:fake_player) { FakePlayer.new(Mark::CROSS, true) }
+  let(:fake_player_2) { FakePlayer.new(Mark::ROUND, false) }
   let (:game) { Game.new(board, fake_player, fake_player_2) }
   let(:board_helper) { BoardHelper.new(board) }
 
@@ -34,12 +36,6 @@ RSpec.describe Game do
     game.play
     expect(game.current_player.mark).to eq(Mark::ROUND)
     expect(board_helper.board_to_string).to eq("X  ,   ,   ")
-  end
-
-  it "get back the first player after the second one played" do
-    execute_moves([0, 1])
-    expect(game.current_player.mark).to eq(Mark::CROSS)
-    expect(board_helper.board_to_string).to eq("XO ,   ,   ")
   end
 
   it "return the game status" do
