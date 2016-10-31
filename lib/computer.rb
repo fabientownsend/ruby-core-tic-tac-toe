@@ -3,10 +3,12 @@ require 'player'
 
 class Computer < Player
   attr_reader :board
+  attr_reader :ready
 
   def initialize(mark, board)
     super(mark)
     @board = board
+    @ready = true
   end
 
   def next_move
