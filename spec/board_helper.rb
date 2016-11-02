@@ -6,12 +6,12 @@ class BoardHelper
   def string_to_board(string_board)
     rows = string_board.split(",")
 
-    @board.board.size.times do |index_row|
-      @board.board.size.times do |index_column|
+    @board.content.size.times do |index_row|
+      @board.content.size.times do |index_column|
         if rows[index_row].chars[index_column] == Mark::CROSS
-          @board.board[index_row][index_column] = Mark::CROSS
+          @board.content[index_row][index_column] = Mark::CROSS
         elsif rows[index_row].chars[index_column] == Mark::ROUND
-          @board.board[index_row][index_column] = Mark::ROUND
+          @board.content[index_row][index_column] = Mark::ROUND
         end
       end
     end
@@ -20,7 +20,7 @@ class BoardHelper
   def board_to_string
     board_string = ""
 
-    @board.board.flatten.each.with_index do |value, index|
+    @board.content.flatten.each.with_index do |value, index|
       if !value.is_a?(Integer)
         board_string << value
       else
@@ -38,6 +38,6 @@ class BoardHelper
   end
 
   def board_edge?(index)
-    index % @board.board.size == 0
+    index % @board.content.size == 0
   end
 end

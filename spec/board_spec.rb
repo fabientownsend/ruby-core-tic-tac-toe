@@ -12,7 +12,7 @@ RSpec.describe Board do
     board_helper.string_to_board("   ,   ,   ")
 
     expect(board.free_positions.include?(position)).to be true
-    expect(board.content).to eq("   ,   ,   ")
+    expect(board_helper.board_to_string).to eq("   ,   ,   ")
   end
 
   it "isn't a free position when the spot is used" do
@@ -20,7 +20,7 @@ RSpec.describe Board do
     board_helper.string_to_board("X  ,   ,   ")
 
     expect(board.free_positions.include?(position)).to be false
-    expect(board.content).to eq("X  ,   ,   ")
+    expect(board_helper.board_to_string).to eq("X  ,   ,   ")
   end
 
   it "is a win with the first column" do
@@ -85,12 +85,13 @@ RSpec.describe Board do
 
   it "create a board 3x3" do
     board = Board.new(3)
-    expect(board.content).to eq("   ,   ,   ")
+    expect(board.content).to eq([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
   end
 
   it "create a board 4x4" do
     board = Board.new(4)
-    expect(board.content).to eq("    ,    ,    ,    ")
+    expect(board.content).to eq([[0, 1, 2, 3], [4, 5, 6, 7],
+                                 [8, 9, 10, 11], [12, 13, 14, 15]])
   end
 
   it "raise an error when it's not a int" do

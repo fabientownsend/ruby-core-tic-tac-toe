@@ -1,7 +1,6 @@
 require 'marks'
 
 class Board
-  attr_reader :board
   attr_reader :POSITION_MIN
   attr_reader :POSITION_MAX
 
@@ -38,26 +37,11 @@ class Board
   end
 
   def content
-    board_string = ""
-
-    board.flatten.each.with_index do |value, index|
-      if !value.is_a?(Integer)
-        board_string << value
-      else
-        board_string << " "
-      end
-
-      index += 1
-      if  board_edge?(index) && index != @POSITION_MAX
-        board_string << ","
-      end
-
-    end
-
-    board_string
+    board.clone
   end
 
   private
+  attr_reader :board
 
   def rows
     board
