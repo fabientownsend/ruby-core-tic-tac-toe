@@ -17,7 +17,10 @@ RSpec.describe Game do
   let (:board) { Board.new }
   let(:fake_player) { FakePlayer.new(Mark::CROSS, true) }
   let(:fake_player_2) { FakePlayer.new(Mark::ROUND, false) }
-  let (:game) { Game.new(board, fake_player, fake_player_2) }
+  let (:game) { Game.new(
+    :board => board,
+    :player_one => fake_player,
+    :player_two => fake_player_2) }
   let(:board_helper) { BoardHelper.new(board) }
 
   it "return the current player" do

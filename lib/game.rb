@@ -2,9 +2,9 @@ class Game
   attr_reader :current_player
   attr_reader :winner
 
-  def initialize(board, player_one, player_two)
-    @board = board
-    @players = [player_one, player_two]
+  def initialize(args)
+    @board = args[:board]
+    @players = [args[:player_one], args[:player_two]]
     @current_player = @players.first
     @winner = ""
   end
