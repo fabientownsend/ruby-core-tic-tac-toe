@@ -10,6 +10,12 @@ class Board
     @POSITION_MAX = board.size ** 2
   end
 
+  def reset(board_size = 3)
+    @board = create_board(board_size)
+    @POSITION_MIN = 0
+    @POSITION_MAX = board.size ** 2
+  end
+
   def set_mark(mark, position)
     position = Integer(position)
     in_range(position)

@@ -23,6 +23,14 @@ RSpec.describe Board do
     expect(board_helper.board_to_string).to eq("X  ,   ,   ")
   end
 
+  it "has a empty board after a reset" do
+    board_helper.string_to_board("X  ,   ,   ")
+
+    board.reset
+
+    expect(board_helper.board_to_string).to eq("   ,   ,   ")
+  end
+
   it "is a win with the first column" do
     board_helper.string_to_board("XO ,XO ,X  ")
 
